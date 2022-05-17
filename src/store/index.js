@@ -1,9 +1,8 @@
 import { createStore } from 'redux';
 
-function reducer() {
-  return {
-    activeLesson: null,
-    activeModule: null,
+const initialState = {
+    activeLesson: {},
+    activeModule: {},
     modules: [
       { 
         id: 1, 
@@ -23,6 +22,18 @@ function reducer() {
       }
     ]
   };
+
+function reducer(prevState = initialState, action) {
+  switch (action.type) {
+    case 'TOGGLE_LESSON':
+      return { 
+        ...prevState, 
+        activeLesson: action.lesson, 
+        activeModule: action.module 
+      };
+    default:
+      return prevState;
+  }
 }
 
 const store = createStore(reducer);
